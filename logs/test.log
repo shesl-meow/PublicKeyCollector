@@ -1,0 +1,9 @@
+[2020-02-04 02:16:53.873] [local_server_test] [debug] Log file set up! Hello World Message!
+[2020-02-04 02:16:53.876] [local_server_test] [warning] Can't grab public key from '127.0.0.1' throw Internet.
+[2020-02-04 02:23:30.169] [single_server_test] [debug] Log file set up! Hello World Message!
+[2020-02-04 02:23:30.170] [single_server_test] [error] Invalid ipv4 address 'mm', character 'm' occur.
+[2020-02-04 02:23:30.170] [single_server_test] [error] Invalid ipv4 address '256.1.1.1', number '256' occur.
+[2020-02-04 02:23:30.170] [single_server_test] [error] Invalid ipv4 address '1.2.3.4.5', required four number.
+[2020-02-04 02:23:30.170] [single_server_test] [warning] Invalid ipv4 address '127.0.0.1', it's a reserved address
+[2020-02-04 02:23:30.432] [single_server_test] [error] Depart public key of '39.105.214.245' from signature failed.
+[2020-02-04 02:23:30.683] [single_server_test] [error] Depart public key of '47.94.141.55' from signature failed.
