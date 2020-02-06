@@ -19,10 +19,10 @@ private:
     size_t dssServerCount = 0;
     size_t ecdsaServerCount = 0;
     size_t eddsaServerCount = 0;
-    void scanServer(SSHCollector *sshCollector);
+    void scanServer(const std::vector<uint8_t> &ipv);
 
 public:
-    void scanServers(const std::vector<uint8_t> &from, const std::vector<uint8_t> &to);
+    void scanServers(const std::vector<uint8_t> &from, const std::vector<int> &to);
 };
 
 

@@ -9,6 +9,7 @@
 #define ABSTRACTLOGMSG_IPCHAROUTRANGE "Invalid ipv4 address (Please provide characters of decimal representation)"
 #define ABSTRACTLOGMSG_IPAMOUNTWRONG "Invalid ipv4 address (Required exactly four numbe)"
 #define ABSTRACTLOGMSG_NOTINTERNETIP "Invalid ipv4 address '{0}', it's a reserved address"
+#define ABSTRACTLOGMSG_SOCKETINITFAIL "Socket library initialization failed."
 
 #define SSHLOGMSG_IPV4SETSUCCESS "Server '{0}' has been set successfully."
 #define SSHLOGMSG_INITSUCCESS "SSHCollector has been init successfully."
@@ -22,8 +23,8 @@
 #define SSHLOGMSG_SSHLIBERROR "An error of sshlib has occur."
 #define SSHLOGMSG_SERVERERROR "[{0}] Can't grab public key throw Internet."
 
-#define SSHSLOGMSG_RSACOUNT "'{0}' of ssh-rsa server has been discovered."
-#define SSHSLOGMSG_DSSCOUNT "'{0}' of ssh-dss server has been discovered."
-#define SSHSLOGMSG_ECDSACOUNT "'{0}' of ssh-ecdsa server has been discovered."
-#define SSHSLOGMSG_EDDSACOUNT "'{0}' of ssh-eddsa server has been discovered."
+#define SSHSLOGMSG_RSACOUNT "'{0}' ssh-rsa server has been discovered."
+#define SSHSLOGMSG_DSSCOUNT "'{0}' ssh-dss server has been discovered."
+#define SSHSLOGMSG_ECDSACOUNT "'{0}' ssh-ecdsa server has been discovered."
+#define SSHSLOGMSG_EDDSACOUNT "'{0}' ssh-eddsa server has been discovered."
 #endif //PUBLICKEYCOLLECTOR_MESSAGECONST_H

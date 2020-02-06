@@ -1,0 +1,12 @@
+[2020-02-06 13:06:38.008] [SUMMARY] [info] '19' ssh-rsa server has been discovered.
+[2020-02-06 13:06:38.008] [SUMMARY] [info] '0' ssh-dss server has been discovered.
+[2020-02-06 13:06:38.008] [SUMMARY] [info] '27' ssh-ecdsa server has been discovered.
+[2020-02-06 13:06:38.008] [SUMMARY] [info] '175' ssh-eddsa server has been discovered.
+[2020-02-06 13:17:04.036] [SUMMARY] [info] '0' ssh-rsa server has been discovered.
+[2020-02-06 13:17:04.036] [SUMMARY] [info] '0' ssh-dss server has been discovered.
+[2020-02-06 13:17:04.036] [SUMMARY] [info] '0' ssh-ecdsa server has been discovered.
+[2020-02-06 13:17:04.036] [SUMMARY] [info] '0' ssh-eddsa server has been discovered.
+[2020-02-06 13:18:55.679] [SUMMARY] [info] '19' ssh-rsa server has been discovered.
+[2020-02-06 13:18:55.679] [SUMMARY] [info] '0' ssh-dss server has been discovered.
+[2020-02-06 13:18:55.679] [SUMMARY] [info] '28' ssh-ecdsa server has been discovered.
+[2020-02-06 13:18:55.679] [SUMMARY] [info] '176' ssh-eddsa server has been discovered.

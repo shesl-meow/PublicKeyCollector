@@ -22,6 +22,7 @@
 *.la
 *.a
 *.lib
+*.cbp
 
 # Executables
 *.exe
@@ -113,6 +114,9 @@ fabric.properties
 # *.ipr
 
 # CMake
+*.cmake
+CMakeCache.txt
+CMakeFiles/
 cmake-build-*/
 
 # Mongo Explorer plugin

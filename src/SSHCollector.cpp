@@ -7,25 +7,11 @@
 
 #include "../include/SSHCollector.h"
 #include "MessageConst.h"
-//
-//SSHCollector::SSHCollector(const std::string& ipAddr, uint16_t sshPort) : AbstractCollector(ipAddr, sshPort) {
-//    fileLogger = spdlog::basic_logger_mt(this->getIP4StringAddress(), SCANLOGPATH.string());
-//    consoleLogger = spdlog::stdout_color_mt(this->getIP4StringAddress());
-//    spdlog::set_level(spdlog::level::info);
-//    consoleLogger->info(SSHLOGMSG_INITSUCCESS);
-//}
-//
-//SSHCollector::SSHCollector(const std::vector<uint8_t> &ipAddr, uint16_t sshPort) : AbstractCollector(ipAddr, sshPort) {
-//    fileLogger = spdlog::basic_logger_mt(this->getIP4StringAddress(), SCANLOGPATH.string());
-//    consoleLogger = spdlog::stdout_color_mt(this->getIP4StringAddress());
-//    spdlog::set_level(spdlog::level::info);
-//    consoleLogger->info(SSHLOGMSG_INITSUCCESS);
-//}
 
 std::string SSHCollector::getDataFilename() const {
     std::__fs::filesystem::path parentPath = AbstractCollector::getDataFilename();
     parentPath /= "ssh" + std::to_string(this->port) + "." +
-            ssh_key_type_to_char(ssh_key_type(serverKey)) + ".cert";
+                  ssh_key_type_to_char(ssh_key_type(serverKey)) + ".cert";
     return parentPath.string();
 }
 
@@ -38,7 +24,8 @@ bool SSHCollector::exportServerPublicKey() {
 
     fclose(outf);
     return true;
-storeToFile_ERROR:
+
+    storeToFile_ERROR:
     fclose(outf);
     getFileLogger()->error(SSHLOGMSG_EXPORTFAILED);
     return false;
@@ -82,7 +69,8 @@ bool SSHCollector::parseServerPublicKey() {
     namespace bbdb64 = boost::beast::detail::base64;
     char *b64cipher = nullptr, *b64plain = nullptr;
     size_t clen = 0, plen = 0;
-    mpz_t mpint; mpz_init(mpint);
+    mpz_t mpint;
+    mpz_init(mpint);
     std::pair<size_t, size_t> pairFlag;
     publicMessage = mpz_class(0);
 
@@ -99,8 +87,7 @@ bool SSHCollector::parseServerPublicKey() {
     switch (ssh_key_type(serverKey)) {
         case SSH_KEYTYPE_RSA:
         case SSH_KEYTYPE_RSA1:
-        case SSH_KEYTYPE_RSA_CERT01:
-        {
+        case SSH_KEYTYPE_RSA_CERT01: {
             mpz_import(mpint, 4, 1, sizeof(char), 0, 0, b64plain);
             auto mpsizeT = mpz_class(mpint).get_ui(); // sizeof type description
             mpz_import(mpint, 4, 1, sizeof(char), 0, 0, b64plain + 4 + mpsizeT);
@@ -112,8 +99,7 @@ bool SSHCollector::parseServerPublicKey() {
         }
             break;
         case SSH_KEYTYPE_DSS:
-        case SSH_KEYTYPE_DSS_CERT01:
-        {
+        case SSH_KEYTYPE_DSS_CERT01: {
             // https://notes.shesl.top/an-quan-ji-shu/mi-ma-xue/gong-yue-mi-ma-ti-zhi/elgamal
             mpz_import(mpint, 4, 1, sizeof(char), 0, 0, b64plain);
             auto mpsizeT = mpz_class(mpint).get_ui(); // sizeof type description
@@ -125,18 +111,19 @@ bool SSHCollector::parseServerPublicKey() {
             break;
         default:
             getFileLogger()->warn(SSHLOGMSG_ALGORITHMNOTSUPPORT,
-                    ssh_key_type_to_char(ssh_key_type(serverKey)));
+                                  ssh_key_type_to_char(ssh_key_type(serverKey)));
             publicMessage = mpz_class(0);
             break;
     }
 
-    delete []b64cipher;
-    delete []b64plain;
+    delete[]b64cipher;
+    delete[]b64plain;
     mpz_clear(mpint);
     return true;
-getPrimeProduct_ERROR:
-    delete []b64cipher;
-    delete []b64plain;
+
+    getPrimeProduct_ERROR:
+    delete[]b64cipher;
+    delete[]b64plain;
     mpz_clear(mpint);
     getFileLogger()->error(SSHLOGMSG_DECODEPFAILED);
     return false;

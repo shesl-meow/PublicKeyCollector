@@ -26,5 +26,5 @@ set_target_properties(SSHCollector
 )
 target_link_libraries(SSHCollector ${SSHCollectorLinks})
 
-add_executable(SSHCollectorTestCases ./test/SSHCollectorTestCases.cpp ${SSHCollectorSrcs})
+add_executable(./test/SSHCollectorTestCases.cpp ${SSHCollectorSrcs})
 target_link_libraries(SSHCollectorTestCases boost_unit_test_framework ${SSHCollectorLinks})
