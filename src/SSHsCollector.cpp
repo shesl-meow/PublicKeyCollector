@@ -3,6 +3,7 @@
 //
 #include <boost/asio/thread_pool.hpp>
 #include <boost/asio/post.hpp>
+#include <fstream>
 
 #include "../include/SSHCollector.h"
 #include "../include/SSHsCollector.h"
@@ -21,7 +22,10 @@ void SSHsCollector::scanServers(const std::vector<uint8_t> &from, const std::vec
             for (int i2 = ipv[2]; i2 < to[2]; ipv[2] = ++i2) {
                 for (int i3 = ipv[3]; i3 < to[3]; ipv[3] = ++i3) {
                     boost::asio::post(threadPool, [this, ipv] {
-                        this->scanServer(ipv);
+                        if (!AbstractCollector::isValidInternetIP(ipv)) return;
+                        SSHCollector sshCollector(ipv);
+                        if (!sshCollector.scanServer()) this->failCount++;
+                        this->doStatistics(sshCollector.serverKey);
                     });
                 }
             }
@@ -43,12 +47,25 @@ void SSHsCollector::scanServers(const std::vector<uint8_t> &from, const std::vec
     fileLogger->info(SSHSLOGMSG_EDDSACOUNT, eddsaServerCount);
 }
 
-void SSHsCollector::scanServer(const std::vector<uint8_t> &ipv) {
-    if (!AbstractCollector::isValidInternetIP(ipv)) return;;
+void SSHsCollector::scanServers(const char *filename) {
+    std::fstream fs;
+    fs.open(filename, std::fstream::in);
+    if (!fs.is_open()) return;
+    boost::asio::thread_pool threadPool(this->threadNumber);
+    while (!fs.eof()) {
+        boost::asio::post(threadPool, [this, &fs] {
+            std::string ipStr; fs >> ipStr;
+            SSHCollector sshCollector(ipStr);
+            if (!sshCollector.scanServer()) this->failCount++;
+            this->doStatistics(sshCollector.serverKey);
+        });
+    }
+    threadPool.join();
+    fs.close();
+}
 
-    SSHCollector sshCollector(ipv);
-    if (!sshCollector.scanServer()) this->failCount++;
-    switch (ssh_key_type(sshCollector.serverKey)) {
+void SSHsCollector::doStatistics(ssh_key sshKey) {
+    switch (ssh_key_type(sshKey)) {
         case SSH_KEYTYPE_RSA:
         case SSH_KEYTYPE_RSA1:
         case SSH_KEYTYPE_RSA_CERT01: this->rsaServerCount++; break;

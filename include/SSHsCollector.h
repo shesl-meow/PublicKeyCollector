@@ -19,10 +19,11 @@ private:
     size_t dssServerCount = 0;
     size_t ecdsaServerCount = 0;
     size_t eddsaServerCount = 0;
-    void scanServer(const std::vector<uint8_t> &ipv);
+    void doStatistics(ssh_key sshKey);
 
 public:
     void scanServers(const std::vector<uint8_t> &from, const std::vector<int> &to);
+    void scanServers(const char* filename);
 };
 
 
